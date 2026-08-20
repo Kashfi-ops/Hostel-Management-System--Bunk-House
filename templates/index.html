@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+  <h1>Welcome</h1>
+  <!-- <p>This is a simple Flask + MySQL authentication demo.</p> -->
+  <div class="actions">
+    <a class="btn" href="{{ url_for('login') }}">Login</a>
+    <a class="btn secondary" href="{{ url_for('signup') }}">Sign Up</a>
+  </div>
+{% endblock %}

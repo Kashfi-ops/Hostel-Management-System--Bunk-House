@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block wrapper_class %}wide{% endblock %}
+{% block card_class %}wide{% endblock %}
+{% block content %}
+  <h1 class="hostel-brand">BUNK HOUSE</h1>
+
+  <div class="nav-segments">
+    <a href="{{ url_for('shaj.submit_complaint') }}">Complaint</a>
+    <a href="{{ url_for('shaj.my_complaints') }}">Status</a>
+    <span class="disabled" title="Coming soon">Maintenance</span>
+    <span class="disabled" title="Coming soon">Feedback</span>
+    <span class="disabled" title="Coming soon">Meal</span>
+  </div>
+
+  <p class="welcome-line">Welcome, {{ username }}. Select an option above to get started.</p>
+
+  <div class="hostel-image">
+    <img src="{{ url_for('static', filename='hostel.jpg') }}" alt="Hostel building">
+  </div>
+{% endblock %}

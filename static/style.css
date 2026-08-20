@@ -1,0 +1,270 @@
+:root {
+  --bg: #1b1f27;
+  --card-bg: #ffffff;
+  --accent: #4f6df5;
+  --accent-dark: #3953c9;
+  --text: #1b1f27;
+  --muted: #6b7280;
+  --error: #d64545;
+  --success: #2f9e58;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, #1b1f27, #323a4d);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: var(--text);
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 40px;
+  padding: 0 16px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4px;
+  color: #fff;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 16px;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.nav-links a:hover { opacity: 1; }
+
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 12px 0 4px;
+}
+
+input {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover { background: var(--accent-dark); }
+
+.btn.secondary {
+  background: #e5e7eb;
+  color: var(--text);
+}
+
+.btn.secondary:hover { background: #d1d5db; }
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.switch-link {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.flash-container {
+  margin-bottom: 12px;
+}
+
+.flash {
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.flash.success {
+  background: #e6f7ec;
+  color: var(--success);
+  border: 1px solid #b7ebc6;
+}
+
+.flash.error {
+  background: #fdecec;
+  color: var(--error);
+  border: 1px solid #f5b8b8;
+}
+
+/* block letters */
+.wrapper.wide {
+  max-width: 100%;
+  padding: 0;
+}
+
+.wrapper.medium {
+  max-width: 760px;
+}
+
+.card.wide {
+  border-radius: 0;
+  box-shadow: none;
+  padding: 48px 64px;
+  min-height: calc(100vh - 70px);
+}
+
+.hostel-brand {
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--text);
+  margin: 0 0 28px;
+}
+
+.nav-segments {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 18px;
+  margin-bottom: 32px;
+}
+
+.nav-segments a, .nav-segments span {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-segments a:hover {
+  color: var(--accent);
+}
+
+.nav-segments span.disabled {
+  color: #c3c8d1;
+  cursor: not-allowed;
+}
+
+.welcome-line {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.hostel-image {
+  width: 100%;
+  height: 700px;
+  border-radius: 12px;
+  margin-top: 12px;
+}
+
+.hostel-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* complaint */
+select, textarea {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.complaint-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 0.88rem;
+}
+
+.complaint-table th, .complaint-table td {
+  text-align: left;
+  padding: 8px 6px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.status-badge {
+  background: #fff4d6;
+  color: #92680b;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+}
+
+/* complaint form wide */
+.card.wide form {
+  max-width: 700px;
+}
+
+.card.wide input,
+.card.wide select,
+.card.wide textarea {
+  font-size: 1.05rem;
+  padding: 14px 16px;
+}
+
+.card.wide .btn {
+  font-size: 1rem;
+  padding: 14px 22px;
+}

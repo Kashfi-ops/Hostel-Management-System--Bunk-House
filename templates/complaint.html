@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Submit Complaint{% endblock %}
+{% block wrapper_class %}wide{% endblock %}
+{% block card_class %}wide{% endblock %}
+{% block content %}
+  <h1>Submit a Complaint</h1>
+  <form method="POST" action="{{ url_for('shaj.submit_complaint') }}">
+    <label for="supervisor_id">Send To (Supervisor)</label>
+    <select id="supervisor_id" name="supervisor_id" required>
+      <option value="" disabled selected>-- Select a supervisor --</option>
+      {% for sup in supervisors %}
+        <option value="{{ sup.supervisor_id }}">{{ sup.supervisor_name }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="description">Complaint Description</label>
+    <textarea id="description" name="description" rows="8" required placeholder="Describe your complaint..."></textarea>
+
+    <button type="submit" class="btn">Submit Complaint</button>
+  </form>
+  <p class="switch-link"><a href="{{ url_for('shaj.my_complaints') }}">View my past complaints</a></p>
+{% endblock %}
