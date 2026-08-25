@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Service Requests</title>
+</head>
+<body>
+
+    <h2>My Service Requests</h2>
+
+    {% if requests %}
+
+        <table border="1" cellpadding="10">
+            <tr>
+                <th>Request ID</th>
+                <th>Service Type</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Submitted</th>
+            </tr>
+
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.request_id }}</td>
+                <td>{{ request.service_type }}</td>
+                <td>{{ request.description }}</td>
+                <td>{{ request.status }}</td>
+                <td>{{ request.created_at }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <p>You have not submitted any service requests yet.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('roza.service_request') }}">
+        Apply for a Service
+    </a>
+
+    <br><br>
+
+    <a href="{{ url_for('dashboard') }}">
+        Back to Dashboard
+    </a>
+
+</body>
+</html>
