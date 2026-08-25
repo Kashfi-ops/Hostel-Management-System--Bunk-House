@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apply for Service</title>
+</head>
+<body>
+
+    <h2>Service / Technical Issue</h2>
+
+    <form method="POST">
+
+        <label for="service_type">Service Type:</label>
+        <select name="service_type" id="service_type" required>
+            <option value="">-- Select a service --</option>
+            <option value="Electrical">Electrical Issue</option>
+            <option value="Plumbing">Plumbing Issue</option>
+            <option value="Internet">Internet / Wi-Fi Issue</option>
+            <option value="Furniture">Furniture Issue</option>
+            <option value="Cleaning">Cleaning Service</option>
+            <option value="Technical">Other Technical Issue</option>
+            <option value="Other">Other Service</option>
+        </select>
+
+        <br><br>
+
+        <label for="description">Describe the problem:</label>
+        <br>
+        <textarea
+            name="description"
+            id="description"
+            rows="6"
+            cols="50"
+            placeholder="Describe your issue..."
+            required
+        ></textarea>
+
+        <br><br>
+
+        <button type="submit">Submit Request</button>
+
+    </form>
+
+    <br>
+
+    <a href="{{ url_for('roza.my_service_requests') }}">
+        View My Requests
+    </a>
+
+</body>
+</html>
