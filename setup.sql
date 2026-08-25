@@ -36,3 +36,17 @@ CREATE TABLE IF NOT EXISTS complaints (
     FOREIGN KEY (student_id) REFERENCES users(id),
     FOREIGN KEY (supervisor_id) REFERENCES supervisors(supervisor_id)
 );
+
+
+-- Technical Issue Feature 
+
+CREATE TABLE IF NOT EXISTS service_requests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    service_type VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    status VARCHAR(20) DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (student_id) REFERENCES users(id)
+);
