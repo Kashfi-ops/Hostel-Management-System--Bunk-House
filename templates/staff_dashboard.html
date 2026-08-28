@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Dashboard{% endblock %}
+
+{% block wrapper_class %}wide{% endblock %}
+
+{% block card_class %}wide{% endblock %}
+
+{% block content %}
+
+  <h1 class="hostel-brand">BUNK HOUSE</h1>
+
+  <div class="nav-segments">
+
+    <span class="disabled">My Tasks</span>
+
+    <span class="disabled">In Progress</span>
+
+    <span class="disabled">Completed</span>
+
+  </div>
+
+  <p class="welcome-line">
+    Welcome, {{ username }}. This is your staff dashboard.
+  </p>
+
+  <div class="actions">
+
+    <span class="btn secondary">Tasks Coming Soon</span>
+
+  </div>
+
+{% endblock %}
