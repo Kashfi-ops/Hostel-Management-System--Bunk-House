@@ -5,48 +5,237 @@ CREATE DATABASE IF NOT EXISTS bunk_house;
 
 USE bunk_house;
 
-CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
--- ===== Complaint feature: Supervisor + Complaint entities =====
+-- =========================================================
+-- SUPERVISORS
+-- =========================================================
+
 CREATE TABLE IF NOT EXISTS supervisors (
+
     supervisor_id INT AUTO_INCREMENT PRIMARY KEY,
+
     supervisor_name VARCHAR(100) NOT NULL,
+
     phone_no VARCHAR(20),
+
     email VARCHAR(100)
+
 );
 
-INSERT INTO supervisors (supervisor_name, phone_no, email) VALUES
+-- USERS
+
+
+CREATE TABLE IF NOT EXISTS users (
+
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    username VARCHAR(50) NOT NULL UNIQUE,
+
+    email VARCHAR(100) NOT NULL UNIQUE,
+
+    password VARCHAR(255) NOT NULL,
+
+    role VARCHAR(20) NOT NULL DEFAULT 'student',
+
+    supervisor_id INT NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (supervisor_id)
+        REFERENCES supervisors(supervisor_id)
+
+);
+
+
+
+-- =========================================================
+-- CURRENT SUPERVISORS
+-- =========================================================
+
+INSERT INTO supervisors
+(supervisor_name, phone_no, email)
+VALUES
     ('Mr. Rahman', '01700000001', 'rahman@example.com'),
     ('Ms. Akter', '01700000002', 'akter@example.com'),
     ('Mr. Chowdhury', '01700000003', 'chowdhury@example.com');
 
-CREATE TABLE IF NOT EXISTS complaints (
-    complaint_id INT AUTO_INCREMENT PRIMARY KEY,
-    description TEXT NOT NULL,
-    student_id INT NOT NULL,
-    supervisor_id INT NOT NULL,
-    status VARCHAR(20) DEFAULT 'Pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (student_id) REFERENCES users(id),
-    FOREIGN KEY (supervisor_id) REFERENCES supervisors(supervisor_id)
+
+-- =========================================================
+-- STAFF
+-- =========================================================
+
+CREATE TABLE IF NOT EXISTS staff (
+
+    staff_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    staff_name VARCHAR(100) NOT NULL,
+
+    phone_no VARCHAR(20),
+
+    email VARCHAR(100),
+
+    service_type VARCHAR(100),
+
+    status VARCHAR(20) DEFAULT 'Available'
+
 );
 
 
--- Technical Issue Feature 
+-- =========================================================
+-- CURRENT STAFF
+-- =========================================================
+
+INSERT INTO staff
+(staff_name, phone_no, email, service_type, status)
+VALUES
+    (
+        'Staff Member 1',
+        '01700000011',
+        'staff1@bunkhouse.com',
+        'Electrical',
+        'Available'
+    ),
+    (
+        'Staff Member 2',
+        '01700000012',
+        'staff2@bunkhouse.com',
+        'Plumbing',
+        'Available'
+    ),
+    (
+        'Staff Member 3',
+        '01700000013',
+        'staff3@bunkhouse.com',
+        'General Maintenance',
+        'Available'
+    );
+
+
+
+-- =========================================================
+-- SUPERVISOR LOGIN ACCOUNTS
+-- =========================================================
+
+INSERT INTO users
+(username, email, password, role, supervisor_id)
+VALUES
+    (
+        'supervisor1',
+        'supervisor1@bunkhouse.com',
+        'supervisor123',
+        'supervisor',
+        NULL
+    ),
+    (
+        'rahman',
+        'rahman@bunkhouse.com',
+        'hi',
+        'supervisor',
+        1
+    ),
+    (
+        'akter',
+        'akter@bunkhouse.com',
+        'akter123',
+        'supervisor',
+        2
+    ),
+    (
+        'chowdhury',
+        'chowdhury@bunkhouse.com',
+        'chowdhury123',
+        'supervisor',
+        3
+    );
+
+
+-- =========================================================
+-- STAFF LOGIN ACCOUNTS
+-- =========================================================
+
+INSERT INTO users
+(username, email, password, role)
+VALUES
+    (
+        'staff1',
+        'staff1@bunkhouse.com',
+        'staff1login123',
+        'staff'
+    );
+
+
+-- shaj code start 
+-- =========================================================
+-- COMPLAINTS
+-- =========================================================
+
+CREATE TABLE IF NOT EXISTS complaints (
+
+    complaint_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    description TEXT NOT NULL,
+
+    student_id INT NOT NULL,
+
+    supervisor_id INT NOT NULL,
+
+    status VARCHAR(20) DEFAULT 'Pending',
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (student_id)
+        REFERENCES users(id),
+
+    FOREIGN KEY (supervisor_id)
+        REFERENCES supervisors(supervisor_id)
+
+);
+-- shaj code end
+
+
+
+
+-- roza code start
+-- =========================================================
+-- SERVICE REQUESTS / TECHNICAL ISSUES
+-- =========================================================
 
 CREATE TABLE IF NOT EXISTS service_requests (
+
     request_id INT AUTO_INCREMENT PRIMARY KEY,
+
     student_id INT NOT NULL,
+
     service_type VARCHAR(100) NOT NULL,
+
     description TEXT NOT NULL,
+
     status VARCHAR(20) DEFAULT 'Pending',
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (student_id) REFERENCES users(id)
+    -- Supervisor responsible for the request
+    supervisor_id INT NULL,
+
+    -- Staff member assigned to the request
+    staff_id INT NULL,
+
+    -- Time when supervisor approves the request
+    approved_at TIMESTAMP NULL,
+
+    -- Time when staff is assigned
+    assigned_at TIMESTAMP NULL,
+
+    FOREIGN KEY (student_id)
+        REFERENCES users(id),
+
+    FOREIGN KEY (supervisor_id)
+        REFERENCES supervisors(supervisor_id),
+
+    FOREIGN KEY (staff_id)
+        REFERENCES staff(staff_id)
+
 );
+
+-- roza code end
+
