@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Dashboard{% endblock %}
+
+{% block wrapper_class %}wide{% endblock %}
+
+{% block card_class %}wide{% endblock %}
+
+
+{% block content %}
+
+<h1 class="hostel-brand">BUNK HOUSE</h1>
+
+
+<!-- =====================================================
+     STAFF NAVIGATION
+===================================================== -->
+
+<div class="nav-segments">
+
+    <a
+        href="{{ url_for('staff.dashboard', filter='all') }}"
+        class="{% if current_filter == 'all' %}active{% endif %}"
+    >
+        My Tasks
+    </a>
+
+
+    <a
+        href="{{ url_for('staff.dashboard', filter='progress') }}"
+        class="{% if current_filter == 'progress' %}active{% endif %}"
+    >
+        In Progress
+    </a>
+
+
+    <a
+        href="{{ url_for('staff.dashboard', filter='completed') }}"
+        class="{% if current_filter == 'completed' %}active{% endif %}"
+    >
+        Completed
+    </a>
+
+</div>
+
+
+<!-- =====================================================
+     WELCOME
+===================================================== -->
+
+<p class="welcome-line">
+
+    Welcome, {{ username }}.
+
+</p>
+
+
+<!-- =====================================================
+     PAGE TITLE
+===================================================== -->
+
+<h2>
+
+    {% if current_filter == 'progress' %}
+
+        In Progress
+
+    {% elif current_filter == 'completed' %}
+
+        Completed Tasks
+
+    {% else %}
+
+        My Tasks
+
+    {% endif %}
+
+</h2>
+
+
+<!-- =====================================================
+     TASK LIST
+===================================================== -->
+
+{% if tasks %}
+
+
+    {% for task in tasks %}
+
+
+        <div class="request-card">
+
+
+            <h3>
+
+                Technical Issue #{{ task.request_id }}
+
+            </h3>
+
+
+            <p>
+
+                <strong>Service Type:</strong>
+
+                {{ task.service_type }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Student:</strong>
+
+                {{ task.student_username }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Description:</strong>
+
+                {{ task.description }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Status:</strong>
+
+                {{ task.status }}
+
+            </p>
+
+
+            <!-- =================================================
+                 ASSIGNED
+            ================================================= -->
+
+            {% if task.status == 'Assigned' %}
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'staff.start_service_request',
+                        request_id=task.request_id
+                    ) }}"
+                >
+
+                    <button
+                        type="submit"
+                        class="btn"
+                    >
+
+                        Start Task
+
+                    </button>
+
+                </form>
+
+
+            <!-- =================================================
+                 IN PROGRESS
+            ================================================= -->
+
+            {% elif task.status == 'In Progress' %}
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'staff.complete_service_request',
+                        request_id=task.request_id
+                    ) }}"
+                >
+
+                    <button
+                        type="submit"
+                        class="btn"
+                    >
+
+                        Mark Completed
+
+                    </button>
+
+                </form>
+
+
+            <!-- =================================================
+                 COMPLETED
+            ================================================= -->
+
+            {% elif task.status == 'Completed' %}
+
+
+                <p>
+
+                    <strong>
+                        ✓ Completed
+                    </strong>
+
+                </p>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+    {% endfor %}
+
+
+{% else %}
+
+
+    <p>
+
+        No tasks found in this section.
+
+    </p>
+
+
+{% endif %}
+
+
+{% endblock %}
+

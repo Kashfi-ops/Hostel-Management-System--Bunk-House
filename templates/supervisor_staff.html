@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Members{% endblock %}
+
+{% block wrapper_class %}wide{% endblock %}
+{% block card_class %}wide{% endblock %}
+
+{% block content %}
+
+<h1 class="hostel-brand">BUNK HOUSE</h1>
+
+<h2>Staff Members</h2>
+
+<p>
+    View all staff members and their current status.
+</p>
+
+{% if staff %}
+
+<div class="staff-table-wrapper">
+
+    <table class="staff-table">
+
+        <thead>
+            <tr>
+                <th>Staff ID</th>
+                <th>Staff Name</th>
+                <th>Service</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for member in staff %}
+
+            <tr>
+
+                <td>
+                    {{ member.staff_id }}
+                </td>
+
+                <td>
+                    {{ member.staff_name }}
+                </td>
+
+                <td>
+                    {{ member.service_type }}
+                </td>
+
+                <td>
+                    {{ member.phone_no }}
+                </td>
+
+                <td>
+                    {{ member.email }}
+                </td>
+
+                <td>
+
+                    {% if member.status == "Available" %}
+
+                        <span class="staff-status available">
+                            Available
+                        </span>
+
+                    {% else %}
+
+                        <span class="staff-status busy">
+                            Busy
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<p>
+    No staff members found.
+</p>
+
+{% endif %}
+
+<div class="actions">
+
+    <a
+        href="{{ url_for('supervisor.dashboard') }}"
+        class="btn secondary"
+    >
+        Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}
+

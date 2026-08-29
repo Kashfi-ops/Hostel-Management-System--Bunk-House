@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Supervisor Dashboard{% endblock %}
+
+{% block wrapper_class %}wide{% endblock %}
+{% block card_class %}wide{% endblock %}
+
+{% block content %}
+
+<h1 class="hostel-brand">BUNK HOUSE</h1>
+
+<div class="nav-segments">
+
+    <!-- Requests -->
+    <a href="{{ url_for('supervisor.service_requests') }}">
+        Requests
+    </a>
+
+    <!-- Complaints -->
+    <span class="disabled">
+        Complaints
+    </span>
+
+    <!-- Staff -->
+    <a href="{{ url_for('supervisor.staff') }}">
+        Staff
+    </a>
+
+    <!-- Reports -->
+    <span class="disabled">
+        Reports
+    </span>
+
+</div>
+
+<p class="welcome-line">
+    Welcome, {{ username }}. This is your supervisor dashboard.
+</p>
+
+{% endblock %}

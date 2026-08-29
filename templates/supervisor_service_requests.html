@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+
+{% block title %}Technical Issues{% endblock %}
+
+{% block wrapper_class %}wide{% endblock %}
+{% block card_class %}wide{% endblock %}
+
+{% block content %}
+
+<h1 class="hostel-brand">BUNK HOUSE</h1>
+
+<h2>TECHNICAL ISSUES</h2>
+
+<p>
+    Review student service requests and assign staff.
+</p>
+
+
+{% if requests %}
+
+<div class="request-table-wrapper">
+
+    <table class="request-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Request #</th>
+
+                <th>Student</th>
+
+                <th>Service</th>
+
+                <th>Description</th>
+
+                <th>Status</th>
+
+                <th>Assigned Staff</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            {% for request in requests %}
+
+            <tr>
+
+                <!-- REQUEST NUMBER -->
+
+                <td>
+                    {{ request.request_id }}
+                </td>
+
+
+                <!-- STUDENT -->
+
+                <td>
+                    {{ request.student_username }}
+                </td>
+
+
+                <!-- SERVICE -->
+
+                <td>
+                    {{ request.service_type }}
+                </td>
+
+
+                <!-- DESCRIPTION -->
+
+                <td>
+                    {{ request.description }}
+                </td>
+
+
+                <!-- STATUS -->
+
+                <td>
+
+                    <span class="request-status
+                        {% if request.status == 'Completed' %}
+                            completed
+                        {% elif request.status == 'Assigned' %}
+                            assigned
+                        {% else %}
+                            pending
+                        {% endif %}
+                    ">
+
+                        {{ request.status }}
+
+                    </span>
+
+                </td>
+
+
+                <!-- ASSIGNED STAFF -->
+
+                <td class="assigned-staff-cell">
+
+                    {% if request.status == "Completed" %}
+
+                        {% if request.assigned_staff %}
+
+                            <strong>
+                                {{ request.assigned_staff }}
+                            </strong>
+
+                        {% else %}
+
+                            Not Assigned
+
+                        {% endif %}
+
+
+                    {% else %}
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'supervisor.assign_service_request',
+                                request_id=request.request_id
+                            ) }}"
+                            class="assign-form"
+                        >
+
+                            <select
+                                name="staff_id"
+                                class="staff-select"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Staff
+                                </option>
+
+
+                                {% for member in staff %}
+
+                                <option
+                                    value="{{ member.staff_id }}"
+                                    {% if request.staff_id == member.staff_id %}
+                                        selected
+                                    {% endif %}
+                                >
+
+                                    {{ member.staff_name }}
+                                    -
+                                    {{ member.service_type }}
+                                    -
+                                    {{ member.status }}
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+
+                            <button
+                                type="submit"
+                                class="assign-button"
+                            >
+
+                                {% if request.assigned_staff %}
+                                    Reassign
+                                {% else %}
+                                    Assign
+                                {% endif %}
+
+                            </button>
+
+                        </form>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+{% else %}
+
+<p>
+    No technical issues have been submitted.
+</p>
+
+{% endif %}
+
+
+<div class="actions">
+
+    <a
+        href="{{ url_for('supervisor.dashboard') }}"
+        class="btn secondary"
+    >
+        Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}
+
+
