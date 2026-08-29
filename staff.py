@@ -12,7 +12,7 @@ staff_bp = Blueprint("staff", __name__)
 db_config = {
     "host": "localhost",
     "user": "root",
-    "password": "Ksjzja1867@#",
+    "password": "",
     "database": "bunk_house"
 }
 
