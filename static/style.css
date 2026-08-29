@@ -268,3 +268,218 @@ select:focus, textarea:focus {
   font-size: 1rem;
   padding: 14px 22px;
 }
+
+
+/* roza code for table. supervisor sees staff 
+
+/* =========================================================
+   STAFF TABLE
+========================================================= */
+
+.staff-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.staff-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border: 1px solid #ccc;
+    table-layout: auto;
+}
+
+.staff-table th,
+.staff-table td {
+    border: 1px solid #ccc;
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.staff-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #222;
+}
+
+.staff-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.staff-table tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+
+/* =========================================================
+   STAFF STATUS
+========================================================= */
+
+.staff-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.staff-status.available {
+    color: #176b2c;
+    background-color: #d9f5df;
+}
+
+.staff-status.busy {
+    color: #a61b1b;
+    background-color: #f8d7da;
+}
+
+
+/* =========================================================
+   MOBILE TABLE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .staff-table th,
+    .staff-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+}
+
+
+/* supervisor request table.
+
+/* =========================================================
+   TECHNICAL ISSUES TABLE
+========================================================= */
+
+.request-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.request-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+.request-table th,
+.request-table td {
+    border: 1px solid #ccc;
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.request-table th {
+    background-color: #f2f2f2;
+    color: #222;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.request-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.request-table tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+
+/* =========================================================
+   ASSIGNED STAFF COLUMN
+========================================================= */
+
+.assigned-staff-cell {
+    min-width: 190px;
+}
+
+.assign-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.staff-select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 14px;
+}
+
+.assign-button {
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.assign-button:hover {
+    background-color: #555;
+}
+
+
+/* =========================================================
+   REQUEST STATUS
+========================================================= */
+
+.request-status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.request-status.pending {
+    color: #856404;
+    background-color: #fff3cd;
+}
+
+.request-status.assigned {
+    color: #004085;
+    background-color: #cce5ff;
+}
+
+.request-status.completed {
+    color: #155724;
+    background-color: #d4edda;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+    .request-table th,
+    .request-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .assigned-staff-cell {
+        min-width: 170px;
+    }
+
+}
+
+
+/* roza supervisor code end. */
