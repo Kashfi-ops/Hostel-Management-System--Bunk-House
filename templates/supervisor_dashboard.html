@@ -11,15 +11,19 @@
 
 <div class="nav-segments">
 
+    <!-- Complaints -->
+    <a href="{{ url_for('shaj.view_complaints') }}">
+    Complaints
+    </a>
+
+    <a href="{{ url_for('shaj.view_leaves') }}">Leave</a> 
+                
+    <span class="disabled">Booking</span>
+    
     <!-- Requests -->
     <a href="{{ url_for('supervisor.service_requests') }}">
         Requests
-    </a>
-
-    <!-- Complaints -->
-    <span class="disabled">
-        Complaints
-    </span>
+    </a>    
 
     <!-- Staff -->
     <a href="{{ url_for('supervisor.staff') }}">

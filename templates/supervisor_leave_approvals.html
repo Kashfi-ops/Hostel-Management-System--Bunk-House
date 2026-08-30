@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Leave Approval Records{% endblock %}
+
+{% block wrapper_class %}wide{% endblock %}
+{% block card_class %}wide{% endblock %}
+
+{% block content %}
+
+<h1 class="hostel-brand">BUNK HOUSE</h1>
+
+<h2>LEAVE APPROVAL RECORDS</h2>
+
+<p>
+    History of decisions made on student leave requests.
+</p>
+
+{% if approvals %}
+
+<div class="complaint-table-wrapper">
+
+    <table class="complaint-table">
+
+        <thead>
+            <tr>
+                <th>Approval ID</th>
+                <th>Student</th>
+                <th>Approval Date</th>
+                <th>Approval Status</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for a in approvals %}
+            <tr>
+                <td>{{ a.approval_id }}</td>
+                <td>{{ a.student_username }}</td>
+                <td>{{ a.approval_date }}</td>
+                <td><span class="status-badge resolved">{{ a.approval_status }}</span></td>
+                <td>{{ a.comments or '—' }}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<p>No leave decisions recorded yet.</p>
+
+{% endif %}
+
+<div class="actions">
+    <a href="{{ url_for('shaj.view_leaves') }}" class="btn secondary">
+        Back to Leave Requests
+    </a>
+</div>
+
+{% endblock %}

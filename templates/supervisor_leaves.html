@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Leave Requests{% endblock %}
+
+{% block wrapper_class %}wide{% endblock %}
+{% block card_class %}wide{% endblock %}
+
+{% block content %}
+
+<h1 class="hostel-brand">BUNK HOUSE</h1>
+
+<div class="actions" style="margin-bottom: 24px;">
+    <a href="{{ url_for('shaj.leave_approvals') }}" class="btn secondary">
+        View Approval Records
+    </a>
+</div>
+
+<h2>LEAVE REQUESTS</h2>
+
+<p>
+    Review student leave applications and approve or dismiss them.
+</p>
+
+{% if leaves %}
+
+<div class="complaint-table-wrapper">
+
+    <table class="complaint-table">
+
+        <thead>
+            <tr>
+                <th>Leave ID</th>
+                <th>Student</th>
+                <th>Leave Days</th>
+                <th>Start Date</th>
+                <th>Return Date</th>
+                <th>Reason</th>
+                <th>Filed On</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for l in leaves %}
+            <tr>
+
+                <td>{{ l.leave_id }}</td>
+                <td>{{ l.student_username }}</td>
+                <td>{{ l.leave_days }}</td>
+                <td>{{ l.start_date }}</td>
+                <td>{{ l.return_date }}</td>
+                <td>{{ l.reason }}</td>
+                <td>{{ l.created_at }}</td>
+
+                <!-- STATUS + inline decision form -->
+                <td class="status-cell">
+
+                    <details class="status-toggle">
+
+                        <summary>
+                            <span class="status-badge {% if l.status == 'Pending' %}pending{% else %}resolved{% endif %}">
+                                {{ l.status }}
+                            </span>
+                        </summary>
+
+                        {% if l.status == 'Pending' %}
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('shaj.decide_leave', leave_id=l.leave_id) }}"
+                                class="complaint-update-form"
+                            >
+
+                                <label for="status-{{ l.leave_id }}">Decision</label>
+                                <select name="status" id="status-{{ l.leave_id }}" required>
+                                    <option value="" disabled selected>-- Select --</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Dismissed">Dismissed</option>
+                                </select>
+
+                                <label for="comments-{{ l.leave_id }}">Comments (optional)</label>
+                                <textarea
+                                    name="comments"
+                                    id="comments-{{ l.leave_id }}"
+                                    rows="3"
+                                    placeholder="Add a comment..."
+                                ></textarea>
+
+                                <button type="submit" class="btn">Save</button>
+
+                            </form>
+
+                        {% else %}
+
+                            <p style="margin-top:8px; font-size:0.85rem; color: var(--muted);">
+                                Already decided.
+                            </p>
+
+                        {% endif %}
+
+                    </details>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<p>No leave requests have been filed to you yet.</p>
+
+{% endif %}
+
+<div class="actions">
+    <a href="{{ url_for('supervisor.dashboard') }}" class="btn secondary">
+        Back to Dashboard
+    </a>
+</div>
+
+{% endblock %}

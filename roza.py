@@ -7,7 +7,7 @@ roza_bp = Blueprint("roza", __name__)
 db_config = {
     "host": "localhost",
     "user": "root",
-    "password": "abc", # need to put sql password if using mac device.
+    "password": "", # need to put sql password if using mac device.
     "database": "bunk_house"
 }
 

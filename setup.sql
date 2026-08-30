@@ -5,48 +5,30 @@ CREATE DATABASE IF NOT EXISTS bunk_house;
 
 USE bunk_house;
 
-
 -- =========================================================
 -- SUPERVISORS
 -- =========================================================
 
 CREATE TABLE IF NOT EXISTS supervisors (
-
     supervisor_id INT AUTO_INCREMENT PRIMARY KEY,
-
     supervisor_name VARCHAR(100) NOT NULL,
-
     phone_no VARCHAR(20),
-
     email VARCHAR(100)
-
 );
 
 -- USERS
 
-
 CREATE TABLE IF NOT EXISTS users (
-
     id INT AUTO_INCREMENT PRIMARY KEY,
-
     username VARCHAR(50) NOT NULL UNIQUE,
-
     email VARCHAR(100) NOT NULL UNIQUE,
-
     password VARCHAR(255) NOT NULL,
-
     role VARCHAR(20) NOT NULL DEFAULT 'student',
-
     supervisor_id INT NULL,
-
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
     FOREIGN KEY (supervisor_id)
         REFERENCES supervisors(supervisor_id)
-
 );
-
-
 
 -- =========================================================
 -- CURRENT SUPERVISORS
@@ -65,21 +47,13 @@ VALUES
 -- =========================================================
 
 CREATE TABLE IF NOT EXISTS staff (
-
     staff_id INT AUTO_INCREMENT PRIMARY KEY,
-
     staff_name VARCHAR(100) NOT NULL,
-
     phone_no VARCHAR(20),
-
     email VARCHAR(100),
-
     service_type VARCHAR(100),
-
     status VARCHAR(20) DEFAULT 'Available'
-
 );
-
 
 -- =========================================================
 -- CURRENT STAFF
@@ -163,6 +137,53 @@ VALUES
         'staff'
     );
 
+---- Leave applications
+
+CREATE TABLE IF NOT EXISTS leaves (
+    leave_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    supervisor_id INT NOT NULL,
+    leave_days INT NOT NULL,
+    start_date DATE NOT NULL,
+    return_date DATE NOT NULL,
+    reason TEXT NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES users(id),
+    FOREIGN KEY (supervisor_id) REFERENCES supervisors(supervisor_id)
+);
+
+---- Shared approvals 
+
+CREATE TABLE IF NOT EXISTS approvals (
+    approval_id INT AUTO_INCREMENT PRIMARY KEY,
+    leave_id INT NULL,
+    booking_id INT NULL,
+    supervisor_id INT NOT NULL,
+    approval_status VARCHAR(20) NOT NULL,
+    comments TEXT NULL,
+    approval_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (leave_id) REFERENCES leaves(leave_id),
+    FOREIGN KEY (supervisor_id) REFERENCES supervisors(supervisor_id)
+);
+
+--- 
+----create table booking 
+
+--- ALTER TABLE approvals
+--- ADD CONSTRAINT fk_approvals_booking
+--- FOREIGN KEY (booking_id) REFERENCES bookings(booking_id);   
+
+
+ALTER TABLE approvals
+ADD CONSTRAINT chk_one_reference
+CHECK (
+    (leave_id IS NOT NULL AND booking_id IS NULL)
+    OR
+    (leave_id IS NULL AND booking_id IS NOT NULL)
+); 
+
+
 
 -- shaj code start 
 -- =========================================================
@@ -170,25 +191,18 @@ VALUES
 -- =========================================================
 
 CREATE TABLE IF NOT EXISTS complaints (
-
     complaint_id INT AUTO_INCREMENT PRIMARY KEY,
-
     description TEXT NOT NULL,
-
     student_id INT NOT NULL,
-
     supervisor_id INT NOT NULL,
-
+    room_no VARCHAR(20) NULL,
     status VARCHAR(20) DEFAULT 'Pending',
-
+    remark TEXT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
     FOREIGN KEY (student_id)
         REFERENCES users(id),
-
     FOREIGN KEY (supervisor_id)
         REFERENCES supervisors(supervisor_id)
-
 );
 -- shaj code end
 

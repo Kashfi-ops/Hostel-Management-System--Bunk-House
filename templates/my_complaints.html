@@ -8,10 +8,12 @@
     <table class="complaint-table">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Complaint ID</th>
+          <th>Room No.</th>
           <th>To</th>
           <th>Description</th>
           <th>Status</th>
+          <th>Remark</th>
           <th>Filed On</th>
         </tr>
       </thead>
@@ -19,9 +21,11 @@
         {% for c in complaints %}
           <tr>
             <td>{{ c.complaint_id }}</td>
+            <td>{{ c.room_no or '—' }}</td>
             <td>{{ c.supervisor_name }}</td>
             <td>{{ c.description }}</td>
             <td><span class="status-badge">{{ c.status }}</span></td>
+            <td>{{ c.remark or '—' }}</td> 
             <td>{{ c.created_at }}</td>
           </tr>
         {% endfor %}

@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Complaints{% endblock %}
+
+{% block wrapper_class %}wide{% endblock %}
+{% block card_class %}wide{% endblock %}
+
+{% block content %}
+
+<h1 class="hostel-brand">BUNK HOUSE</h1>
+
+<h2>STUDENT COMPLAINTS</h2>
+
+<p>
+    Review complaints filed against roommates and update their status.
+</p>
+
+{% if complaints %}
+
+<div class="complaint-table-wrapper">
+
+    <table class="complaint-table">
+
+        <thead>
+            <tr>
+                <th>Complaint ID</th>
+                <th>Room No.</th>
+                <th>Student</th>
+                <th>Description</th>
+                <th>Filed On</th>
+                <th>Status</th>
+                <th>Remark</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for c in complaints %}
+            <tr>
+
+                <td>{{ c.complaint_id }}</td>
+                <td>{{ c.room_no or '—' }}</td>
+                <td>{{ c.student_username }}</td>
+                <td>{{ c.description }}</td>
+                <td>{{ c.created_at }}</td>
+
+                <!-- STATUS + inline update form -->
+                <td class="status-cell">
+
+                    <details class="status-toggle">
+
+                        <summary>
+                            <span class="status-badge {% if c.status == 'Pending' %}pending{% else %}resolved{% endif %}">
+                                {{ c.status }}
+                            </span>
+                        </summary>
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('shaj.update_complaint_status', complaint_id=c.complaint_id) }}"
+                            class="complaint-update-form"
+                        >
+
+                            <label for="status-{{ c.complaint_id }}">Status</label>
+                            <select name="status" id="status-{{ c.complaint_id }}" required>
+                                <option value="" disabled {% if c.status == 'Pending' %}selected{% endif %}>-- Select --</option>
+                                <option value="Dismissed" {% if c.status == 'Dismissed' %}selected{% endif %}>Dismiss</option>
+                                <option value="Will Talk in Person" {% if c.status == 'Will Talk in Person' %}selected{% endif %}>Will Talk in Person</option>
+                                <option value="Warning Issued" {% if c.status == 'Warning Issued' %}selected{% endif %}>Warning Issued</option>
+                                <option value="Filed to Proctor" {% if c.status == 'Filed to Proctor' %}selected{% endif %}>Filed to Proctor</option>
+                                <option value="Others" {% if c.status == 'Others' %}selected{% endif %}>Others</option>
+                            </select>
+
+                            <label for="remark-{{ c.complaint_id }}">Remark (optional)</label>
+                            <textarea
+                                name="remark"
+                                id="remark-{{ c.complaint_id }}"
+                                rows="3"
+                                placeholder="Add a remark..."
+                            >{{ c.remark or '' }}</textarea>
+
+                            <button type="submit" class="btn">Save</button>
+
+                        </form>
+
+                    </details>
+
+                </td>
+
+                <!-- REMARK (read-only display in the table) -->
+                <td class="remark-cell">
+                    {{ c.remark or '—' }}
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<p>No complaints have been filed to you yet.</p>
+
+{% endif %}
+
+<div class="actions">
+    <a href="{{ url_for('supervisor.dashboard') }}" class="btn secondary">
+        Back to Dashboard
+    </a>
+</div>
+
+{% endblock %}

@@ -269,6 +269,50 @@ select:focus, textarea:focus {
   padding: 14px 22px;
 }
 
+/* Complaint status (supervisor complaint review) */
+.status-cell {
+  min-width: 200px;
+}
+
+.remark-cell {
+  max-width: 260px;
+  word-wrap: break-word;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.status-badge.resolved {
+  background: #e6f7ec;
+  color: var(--success);
+}
+
+.status-toggle summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.status-toggle summary::-webkit-details-marker {
+  display: none;
+}
+
+.complaint-update-form {
+  margin-top: 10px;
+  padding: 14px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 320px;
+}
+
+.complaint-update-form .btn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+}
+/* ----- */
 
 /* roza code for table. supervisor sees staff 
 

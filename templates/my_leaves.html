@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}My Leave Applications{% endblock %}
+{% block wrapper_class %}wide{% endblock %}
+{% block card_class %}wide{% endblock %}
+{% block content %}
+  <h1>My Leave Applications</h1>
+
+  {% if leaves %}
+    <table class="complaint-table">
+      <thead>
+        <tr>
+          <th>Leave ID</th>
+          <th>To</th>
+          <th>Leave Days</th>
+          <th>Start Date</th>
+          <th>Return Date</th>
+          <th>Reason</th>
+          <th>Status</th>
+          <th>Comments</th>
+          <th>Filed On</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in leaves %}
+          <tr>
+            <td>{{ l.leave_id }}</td>
+            <td>{{ l.supervisor_name }}</td>
+            <td>{{ l.leave_days }}</td>
+            <td>{{ l.start_date }}</td>
+            <td>{{ l.return_date }}</td>
+            <td>{{ l.reason }}</td>
+            <td>
+              <span class="status-badge {% if l.status != 'Pending' %}resolved{% endif %}">
+                {{ l.status }}
+              </span>
+            </td>
+            <td>{{ l.comments or '—' }}</td>
+            <td>{{ l.created_at }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>You haven't applied for any leave yet.</p>
+  {% endif %}
+
+  <a class="btn" href="{{ url_for('shaj.apply_leave') }}">Apply for New Leave</a>
+{% endblock %}
