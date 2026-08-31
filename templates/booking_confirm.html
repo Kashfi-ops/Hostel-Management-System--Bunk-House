@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Confirm Booking{% endblock %}
+{% block wrapper_class %}medium{% endblock %}
+{% block content %}
+  <h1>Confirm Room Booking</h1>
+  <p>Room No: <strong>{{ room.room_no }}</strong></p>
+  <p>Capacity: {{ room.capacity }}</p>
+  <p>Currently Occupied: {{ room.occupancy }}</p>
+  <form method="POST" action="{{ url_for('lisan.book_room', room_no=room.room_no) }}">
+    <button type="submit" class="btn">Confirm Booking</button>
+  </form>
+  <p class="switch-link"><a href="{{ url_for('lisan.view_rooms') }}">Back to Rooms</a></p>
+{% endblock %}

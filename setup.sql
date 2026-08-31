@@ -1,6 +1,3 @@
--- Run this in phpMyAdmin (SQL tab) or via the mysql CLI that comes with XAMPP.
--- It creates the database and the users table your Flask app will use.
-
 CREATE DATABASE IF NOT EXISTS bunk_house;
 
 USE bunk_house;
@@ -170,6 +167,16 @@ CREATE TABLE IF NOT EXISTS approvals (
 --- 
 ----create table booking 
 
+CREATE TABLE IF NOT EXISTS bookings (
+    booking_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    room_no INT NOT NULL,
+    booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'Pending',
+    FOREIGN KEY (student_id) REFERENCES users(id),
+    FOREIGN KEY (room_no) REFERENCES rooms(room_no)
+);
+
 --- ALTER TABLE approvals
 --- ADD CONSTRAINT fk_approvals_booking
 --- FOREIGN KEY (booking_id) REFERENCES bookings(booking_id);   
@@ -186,9 +193,7 @@ CHECK (
 
 
 -- shaj code start 
--- =========================================================
--- COMPLAINTS
--- =========================================================
+-- complaints
 
 CREATE TABLE IF NOT EXISTS complaints (
     complaint_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -253,3 +258,66 @@ CREATE TABLE IF NOT EXISTS service_requests (
 
 -- roza code end
 
+--- lisan
+
+-- Feedback 
+CREATE TABLE IF NOT EXISTS feedback (
+    feedback_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    rating INT NOT NULL,
+    comments TEXT,
+    feedback_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES users(id)
+);
+
+-- Meal 
+
+CREATE TABLE IF NOT EXISTS meal_schedule (
+    schedule_id INT AUTO_INCREMENT PRIMARY KEY,
+    day_name VARCHAR(10) NOT NULL,
+    meal_type VARCHAR(20) NOT NULL,
+    item_description VARCHAR(150) NOT NULL
+);
+
+INSERT INTO meal_schedule (day_name, meal_type, item_description) VALUES
+('Saturday','Breakfast','Bread, Egg, Banana'),
+('Saturday','Lunch','Rice, Fish Curry, Vegetables'),
+('Saturday','Snack','Tea, Biscuits'),
+('Saturday','Dinner','Rice, Chicken Curry, Dal'),
+('Sunday','Breakfast','Paratha, Egg, Milk'),
+('Sunday','Lunch','Rice, Beef Curry, Salad'),
+('Sunday','Snack','Singara, Tea'),
+('Sunday','Dinner','Rice, Fish Curry, Dal'),
+('Monday','Breakfast','Bread, Jam, Banana'),
+('Monday','Lunch','Rice, Chicken Curry, Vegetables'),
+('Monday','Snack','Tea, Biscuits'),
+('Monday','Dinner','Khichuri, Egg'),
+
+('Tuesday','Breakfast','Paratha, Vegetable Curry'),
+('Tuesday','Lunch','Rice, Fish Curry, Dal'),
+('Tuesday','Snack','Muri, Tea'),
+('Tuesday','Dinner','Rice, Beef Curry, Salad'),
+('Wednesday','Breakfast','Bread, Egg, Milk'),
+('Wednesday','Lunch','Rice, Chicken Curry, Dal'),
+('Wednesday','Snack','Tea, Biscuits'),
+('Wednesday','Dinner','Rice, Fish Curry, Vegetables'),
+('Thursday','Breakfast','Paratha, Egg, Banana'),
+('Thursday','Lunch','Rice, Beef Curry, Vegetables'),
+('Thursday','Snack','Singara, Tea'),
+('Thursday','Dinner','Rice, Chicken Curry, Dal'),
+('Friday','Breakfast','Semai, Bread'),
+('Friday','Lunch','Polao, Chicken Roast, Salad'),
+('Friday','Snack','Tea, Biscuits'),
+('Friday','Dinner','Rice, Fish Curry, Dal');
+
+-- ===== Room Booking feature =====
+CREATE TABLE IF NOT EXISTS rooms (
+    room_no INT PRIMARY KEY,
+    capacity INT DEFAULT 4,
+    occupancy INT DEFAULT 0
+);
+
+INSERT INTO rooms (room_no, capacity, occupancy) VALUES
+(101,4,0),(102,4,0),(103,4,0),(104,4,0),(105,4,0),
+(106,4,0),(107,4,0),(108,4,0),(109,4,0),(110,4,0),
+(111,4,0),(112,4,0),(113,4,0),(114,4,0),(115,4,0);

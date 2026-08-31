@@ -10,8 +10,10 @@
     <a href="{{ url_for('shaj.my_complaints') }}">Status</a>
     <a href="{{ url_for('shaj.apply_leave') }}">Leave</a>
     <a href="{{ url_for('roza.service_request') }}">Maintenance</a>
-    <span class="disabled" title="Coming soon">Feedback</span>
-    <span class="disabled" title="Coming soon">Meal</span>
+    <a href="{{ url_for('lisan.feedback_page') }}">Feedback</a>
+    <a href="{{ url_for('lisan.meal_page') }}">Meal</a>
+    <a href="{{ url_for('lisan.view_rooms') }}">Room</a>
+    <a href="{{ url_for('lisan.my_bookings') }}">Booking</a>
   </div>
 
   <p class="welcome-line">Welcome, {{ username }}. Select an option above to get started.</p>

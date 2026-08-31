@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Rooms{% endblock %}
+{% block wrapper_class %}wide{% endblock %}
+{% block card_class %}wide{% endblock %}
+{% block content %}
+  <h1>Available Rooms</h1>
+  <table class="complaint-table">
+    <thead>
+      <tr>
+        <th>Room No</th>
+        <th>Capacity</th>
+        <th>Occupied</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in rooms %}
+        <tr>
+          <td>{{ r.room_no }}</td>
+          <td>{{ r.capacity }}</td>
+          <td>{{ r.occupancy }}</td>
+          <td>
+            {% if r.occupancy < r.capacity %}
+              <span class="status-badge" style="background:#dcfce7;color:#166534;">Vacant</span>
+            {% else %}
+              <span class="status-badge" style="background:#fee2e2;color:#991b1b;">Full</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if r.occupancy < r.capacity %}
+              <a class="btn" href="{{ url_for('lisan.book_room', room_no=r.room_no) }}">Book</a>
+            {% else %}
+              —
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
